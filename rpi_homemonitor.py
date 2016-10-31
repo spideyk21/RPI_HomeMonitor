@@ -9,7 +9,7 @@
 #
 #python_version  : 3.0
 #notes			 : uses gpiozero (https://gpiozero.readthedocs.org/)
-#				 : requires curl (sudo apt-get install curl)
+#				 : requires curl (sudo apt-get install curl) for pushbullet
 #				 : https://learnraspi.com/2016/04/12/get-notifications-raspberry-pi-pushbullet/
 #				 : http://www.raspberrypi-spy.co.uk/2015/07/robotsentry-home-security-system-part-1/
 #==============================================================================
@@ -17,14 +17,14 @@
 from gpiozero import Button
 from gpiozero import MotionSensor
 from gpiozero import LED
-from gpiozero import Relay
-import time import sleep
+import time
 import os
 
-pwr_led = LED(x)
-active_led = LED(x)
-pir - MotionSensor(x)
-button_active = Button(x)
+led_pwr = LED(x)
+led_active = LED(x)
+pir = MotionSensor(18)
+button_active = Button(x) #on/off slide switch
+pushbullet = xxxxx #pushbullet token
 
 # Check Board Revision
 	#http://elinux.org/RPi_HardwareHistory
@@ -48,17 +48,32 @@ button = Button(switch_pin) #set gpio number based on board rev.
 # -----------------------
 # Functions
 # -----------------------
-def motion():
-	pir.wait_for_motion()
-	print("Motion Detected!")
-	#pushbullet send notification
+#def motion():
+#	pir.wait_for_motion()
+#	led_active.on() #when motion turn LED on
+#	print("Motion Detected!")
+#	#pushbullet send notification
+#	#option - take picture if camera connected
+#	led_active.off() #turn LED off after notification is sent
 
-def temperature():
+#def temperature():
 	
 	
 # -----------------------
 # Main Script
 # -----------------------
-while true:
-	
+
+pwr_led.on() #turn on power led to notify program is running
+
+#check on/off switch
+
+
+while button_active = true:
+	pir.wait_for_motion()
+	led_active.on() #when motion turn LED on
+	print("Motion Detected!")
+	#pushbullet send notification
+	#option - take picture if camera connected
+	led_active.off() #turn LED off after notification is sent
+	sleep(60) #delay for 60 seconds
 	
