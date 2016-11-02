@@ -68,11 +68,11 @@ pwr_led.on() #turn on power led to notify program is running
 
 while true:
 	while button_active = true:
-		pir.wait_for_motion()
-		led_active.on() #when motion turn LED on
-		print("Motion Detected!")
-		#pushbullet send notification
-		#option - take picture if camera connected
-		led_active.off() #turn LED off after notification is sent
-		sleep(60) #delay for 60 seconds
+		if pir.motion_detected:
+			led_active.on() #when motion turn LED on
+			print("Motion Detected!")
+			#pushbullet send notification
+			#option - take picture if camera connected
+			led_active.off() #turn LED off after notification is sent
+			sleep(60) #delay for 60 seconds
 	
