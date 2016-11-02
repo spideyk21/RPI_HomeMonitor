@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 #title           : rpi_homemonitor.py
-#description     : Monitor Movement, Temperature, Power Status, and Operate Relay
+#description     : Monitor Movement, Temperature, Power Status, and Operate Relay (future)
 #author          : J.Pudlo (spideyk21)
 #date            : 10/24/2016
 #version         : 0.1
 #
-#usage           : add to crontab, i.e. @reboot /[location]/rpi_shutdown.py
+#usage           : add to crontab, i.e. @reboot /[location]/rpi_homemonitor.py
 #
 #python_version  : 3.0
 #notes			 : uses gpiozero (https://gpiozero.readthedocs.org/)
@@ -14,6 +14,7 @@
 #				 : http://www.raspberrypi-spy.co.uk/2015/07/robotsentry-home-security-system-part-1/
 #==============================================================================
 
+from RPi import GPIO
 from gpiozero import Button
 from gpiozero import MotionSensor
 from gpiozero import LED
@@ -65,15 +66,13 @@ button = Button(switch_pin) #set gpio number based on board rev.
 
 pwr_led.on() #turn on power led to notify program is running
 
-#check on/off switch
-
-
-while button_active = true:
-	pir.wait_for_motion()
-	led_active.on() #when motion turn LED on
-	print("Motion Detected!")
-	#pushbullet send notification
-	#option - take picture if camera connected
-	led_active.off() #turn LED off after notification is sent
-	sleep(60) #delay for 60 seconds
+while true:
+	while button_active = true:
+		pir.wait_for_motion()
+		led_active.on() #when motion turn LED on
+		print("Motion Detected!")
+		#pushbullet send notification
+		#option - take picture if camera connected
+		led_active.off() #turn LED off after notification is sent
+		sleep(60) #delay for 60 seconds
 	
