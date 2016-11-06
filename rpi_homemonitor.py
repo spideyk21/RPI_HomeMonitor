@@ -25,15 +25,15 @@ import time
 import os
 import Adafruit_DHT
 
-led_pwr = LED(x)
-led_active = LED(x)
+#led_pwr = LED(x)
+#led_active = LED(x)
 pir = MotionSensor(18)
-button_active = Button(x) #on/off slide switch
+#button_active = Button(x) #on/off slide switch
 
 dht_sensor = Adafruit_DHT.DHT11 #Sensor Type
-dht_pin = xx #GPIO number for Sensor
+dht_pin = 23 #GPIO number for Sensor
 
-pushbullet = xxxxx #pushbullet token
+#pushbullet = xxxxx #pushbullet token
 
 # Check Board Revision
 	#http://elinux.org/RPi_HardwareHistory
@@ -46,13 +46,13 @@ pushbullet = xxxxx #pushbullet token
 	# ? = Pi Zero
 	# ? = Pi3
 		
-gpio_header_rev = GPIO.RPI_INFO['P1_Revision']
+#gpio_header_rev = GPIO.RPI_INFO['P1_Revision']
 
-if gpio_header_rev == 1 or gpio_header_rev == 2:
-	switch_pin = 7
-elif switch_pin = 21
+#if gpio_header_rev == 1 or gpio_header_rev == 2:
+#	switch_pin = 7
+#elif switch_pin = 21
 
-button = Button(switch_pin) #set gpio number based on board rev.
+#button = Button(switch_pin) #set gpio number based on board rev.
 
 # -----------------------
 # Functions
@@ -73,12 +73,12 @@ button = Button(switch_pin) #set gpio number based on board rev.
 # -----------------------
 
 #turn on power led to notify program is running
-pwr_led.on()
+#pwr_led.on()
 
 #grab sensor reading
 # Try to grab a sensor reading.  Use the read_retry method which will retry up
 # to 15 times to get a sensor reading (waiting 2 seconds between each retry).
-humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+humidity, temperature = Adafruit_DHT.read_retry(dht_sensor, dht_pin)
 
 # Note that sometimes you won't get a reading and
 # the results will be null (because Linux can't
@@ -90,13 +90,13 @@ else:
     print('Failed to get reading. Try again!')
 
 
-while true:
-	while button_active = true:
-		if pir.motion_detected:
-			led_active.on() #when motion turn LED on
-			print("Motion Detected!")
-			#pushbullet send notification
-			#option - take picture if camera connected
-			led_active.off() #turn LED off after notification is sent
-			sleep(60) #delay for 60 seconds
+while True:
+#	while button_active = true:
+		pir.wait_for_motion()
+		#led_active.on() #when motion turn LED on
+		print("Motion Detected!")
+		#pushbullet send notification
+		#option - take picture if camera connected
+		#led_active.off() #turn LED off after notification is sent
+		time.sleep(5) #delay in seconds
 	
