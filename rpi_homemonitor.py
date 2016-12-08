@@ -15,6 +15,7 @@
 #				 : https://learnraspi.com/2016/04/12/get-notifications-raspberry-pi-pushbullet/
 #				 : http://www.raspberrypi-spy.co.uk/2015/07/robotsentry-home-security-system-part-1/
 #				 : http://www.circuitbasics.com/how-to-set-up-the-dht11-humidity-sensor-on-the-raspberry-pi/
+#				 : https://docs.python.org/3/library/configparser.html
 #==============================================================================
 
 from RPi import GPIO
@@ -32,6 +33,8 @@ pir = MotionSensor(18)
 
 dht_sensor = Adafruit_DHT.DHT11 #Sensor Type
 dht_pin = 23 #GPIO number for Sensor
+dht_lowtemp = xx
+dht_hightemp = xx
 
 #pushbullet = xxxxx #pushbullet token
 
@@ -75,21 +78,24 @@ dht_pin = 23 #GPIO number for Sensor
 #turn on power led to notify program is running
 #pwr_led.on()
 
-#grab sensor reading
-# Try to grab a sensor reading.  Use the read_retry method which will retry up
-# to 15 times to get a sensor reading (waiting 2 seconds between each retry).
+# Try to grab a sensor reading.Retry up to 15 times to get a sensor reading
+# (waiting 2 seconds between each retry).
 humidity, temperature = Adafruit_DHT.read_retry(dht_sensor, dht_pin)
 
-# Note that sometimes you won't get a reading and
-# the results will be null (because Linux can't
-# guarantee the timing of calls to read the sensor).
+# Cconvert to Fahrenheit
+# °C to °F	Multiply by 9, then divide by 5, then add 32
+temperature = temperature * 9/5.0 + 32
+
+# Note that sometimes you won't get a reading and the results will be null
+# (because Linux can't guarantee the timing of calls to read the sensor).
 # If this happens try again!
 if humidity is not None and temperature is not None:
-    print('Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature, humidity))
+    print('Temp={0:0.1f}*  Humidity={1:0.1f}%'.format(temperature, humidity))
 else:
     print('Failed to get reading. Try again!')
 
 
+	
 while True:
 #	while button_active = true:
 		pir.wait_for_motion()
